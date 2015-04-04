@@ -18,7 +18,7 @@
 	//graylevel images
 	var pathOriginal = pathRoot + "EDF/";
 	//binary images from the conference
-	var pathRootNuc = pathRoot + "nucleoGT/frame0";
+	var pathRootNuc = pathRoot + "NucleusGT/frame";
 	var pathRootCito =  pathRoot + "seg_frame";
 
 //Output
@@ -39,8 +39,28 @@ macro "featureExtractionNucCit" {
 	start = getTime; 	
 	
 		for (k=0;k<N;k++){
+			
+			open(pathOriginal+FileList[k]); rename("orig");
+			nImgFile = split(FileList[k],"frame");
+			nImgFile = split(nImgFile[0],".");
+			nImgFile = nImgFile[0];
+			//imgFile = "frame"+nImgFile+".tif"; //results save as tif :/ 
+			open(pathRootNuc+nImgFile+ "_NUGT.png"); rename("nuc");
+			run("8-bit");	
+			
+			print(pathRootCito+nImgFile+"_png/"); 
+			FileListCito = getFileList(pathRootCito+nImgFile+"_png/");
+			Ncito=FileListCito.length;
 
-			print(pathOriginal+FileList[k]);
+			run("Analyze Particles...", "size="+0+"-Infinity pixels circularity=0.00-1.00 show=Masks in_situ stack");//100=40microns
+
+			//for each cytoplasm
+			for (c=0;c<Ncito;c++){
+				print(pathRootCito+nImgFile+"_png/"+FileListCito[c]);
+				rename("cito");
+			}
+			//rename("cito");
+			
 			jujuba
 			//frame004_NUGT.png
 			//seg_frame004_png/
@@ -48,11 +68,7 @@ macro "featureExtractionNucCit" {
 			
 			open(pathOriginal+FileList[k]); //opens the original image
 			rename("cinza");
-			nImgFile = split(FileList[k],"frame");
-			nImgFile = split(nImgFile[0],".");
-			nImgFile = nImgFile[0];
-			imgFile = "frame"+nImgFile+".tif"; //results save as tif :/ 
-			print(imgFile);
+			
 			//papsmearMeasure(imgFile); //main function!!!
 			
 		}
