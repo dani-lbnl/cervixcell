@@ -10,14 +10,14 @@
  * 	03/24/2015
  */
 
-//Input path - ushizima=laptop, dani=desktop
+//Input path - ushizima=cafofo, dani=trampo
 	var username="ushizima";
-	//graylevel images
-	var pathOriginal = "/Users/"+username+"/Dropbox/aqui/others/Cervix/ISBI2015/data/nossosResultados/testLBNL/EDF/";
-	//"/Users/ushizima/Dropbox/aqui/others/Cervix/ISBI2015/data/nossosResultados/testandoAvaliacao/verdadeTerrestre/segmentacao (1)";
 	
 	//binary images from the conference
-	var pathRoot = "/Users/ushizima/Dropbox/aqui/others/Cervix/ISBI2015/data/imagensOriginais/Training_R1_01Dec2014/Training/"
+	var pathRoot = "/Users/"+username+"/Dropbox/aqui/others/Cervix/ISBI2015/data/imagensOriginais/Training_R1_01Dec2014/Training/"
+	//graylevel images
+	var pathOriginal = pathRoot + "EDF/";
+	//binary images from the conference
 	var pathRootNuc = pathRoot + "nucleoGT/frame0";
 	var pathRootCito =  pathRoot + "seg_frame";
 
@@ -36,14 +36,16 @@ macro "featureExtractionNucCit" {
 	N=FileList.length;
 	print(N);
 
-	//frame004_NUGT.png
-	//seg_frame004_png/
-	
-	start = getTime; 
-
-	
+	start = getTime; 	
 	
 		for (k=0;k<N;k++){
+
+			print(pathOriginal+FileList[k]);
+			jujuba
+			//frame004_NUGT.png
+			//seg_frame004_png/
+			
+			
 			open(pathOriginal+FileList[k]); //opens the original image
 			rename("cinza");
 			nImgFile = split(FileList[k],"frame");
