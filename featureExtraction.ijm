@@ -7,7 +7,7 @@
  * 
  * Created by: 
  * 	Dani Ushizima - dani.lbnl@gmail.com
- * 	03/24/2015
+ * 	03/24/2015	
  */
 
 //Input path - ushizima=cafofo, dani=trampo
@@ -23,8 +23,6 @@
 
 //Output
 	var pathOutput = "/Users/ushizima/Dropbox/aqui/others/Cervix/ISBI2015/data/nossosResultados/testLBNL/trainingFeatures/";
-
-//"/Users/ushizima/Dropbox/aqui/others/Cervix/isbi2015/data/nossosResultados/testLBNL/resSPVD_0322/"
 
 macro "featureExtractionNucCit" {
 	
@@ -71,63 +69,11 @@ macro "featureExtractionNucCit" {
 				wait(100);
 				selectWindow("cito");close;
 			}
-			
-			
-			jujuba
-			//frame004_NUGT.png
-			//seg_frame004_png/
-			
-			
-			open(pathOriginal+FileList[k]); //opens the original image
-			rename("cinza");
-			
-			//papsmearMeasure(imgFile); //main function!!!
-			
+			saveAs("Results", pathOutput+ "featCito" + nImgFile + ".xls");
+			wait(100);
+			selectWindow("orig");close;
+			selectWindow("Results");run("Close");			
 		}
 		
-}
-
-
-/***************************************************************
-* Create borders for nuc and cit to overlay on original image *
-***************************************************************/
-function papsmearSeg(imgFile){
-		
-	filename=getTitle();
-	//a = fParseFileName(filename);
-	if(1==0)
-		print("Error open images --- check line 44");
-	else{
-		
-		//mount paths for nuc and cito
-		open(pathRootNucCito+"frame000CitoNucleo"+imgFile);
-
-		
-		rename("nucleo");
-		run("Find Edges");
-		run("Invert");
-		imageCalculator("AND", "cinza","nucleo");
-		selectWindow("nucleo");
-		run("Invert");
-		
-		open(pathRootNucCito+"cito/"+imgFile);
-		rename("cito");
-		run("Find Edges");
-		run("Invert");
-		imageCalculator("AND", "cinza","cito");
-		selectWindow("cito");
-		run("Invert");
-		//run("Tile");
-		wait(100);
-		
-		//create rgb images with each open image as one channel
-	 	run("Merge Channels...", "c1=cito c3=nucleo c4=cinza"); //
-	 	saveAs("Tiff", pathOutput+imgFile+".tif");
-	 	wait(200);
-	 	close();
-	 	
-	}
-	
-}
-		
+}		
 	
