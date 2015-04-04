@@ -11,15 +11,18 @@
  */
 
 //Input path - ushizima=laptop, dani=desktop
-var username="ushizima";
-//graylevel images
-var pathOriginal = "/Users/"+username+"/Dropbox/aqui/others/Cervix/ISBI2015/data/nossosResultados/testLBNL/EDF/";
-//"/Users/ushizima/Dropbox/aqui/others/Cervix/ISBI2015/data/nossosResultados/testandoAvaliacao/verdadeTerrestre/segmentacao (1)";
+	var username="ushizima";
+	//graylevel images
+	var pathOriginal = "/Users/"+username+"/Dropbox/aqui/others/Cervix/ISBI2015/data/nossosResultados/testLBNL/EDF/";
+	//"/Users/ushizima/Dropbox/aqui/others/Cervix/ISBI2015/data/nossosResultados/testandoAvaliacao/verdadeTerrestre/segmentacao (1)";
+	
+	//binary images from the conference
+	var pathRoot = "/Users/ushizima/Dropbox/aqui/others/Cervix/ISBI2015/data/imagensOriginais/Training_R1_01Dec2014/Training/"
+	var pathRootNuc = pathRoot + "nucleoGT/frame0";
+	var pathRootCito =  pathRoot + "seg_frame";
 
-//binary images from the conference
-var pathRoot = "
-var pathRootNuc = pathRoot +"
-var pathRootCito =  pathRoot +"
+//Output
+	var pathOutput = pathRoot + "features/";
 
 //"/Users/ushizima/Dropbox/aqui/others/Cervix/isbi2015/data/nossosResultados/testLBNL/resSPVD_0322/"
 
@@ -27,15 +30,18 @@ macro "featureExtractionNucCit" {
 	
 	run("Close All");
 	//Output path
-	pathOutput = pathRootNucCito + "features/";
 	File.makeDirectory(pathOutput);
 	
 	FileList = getFileList(pathOriginal);
 	N=FileList.length;
 	print(N);
+
+	//frame004_NUGT.png
+	//seg_frame004_png/
+	
 	start = getTime; 
 
-	//frame000CitoNucleo
+	
 	
 		for (k=0;k<N;k++){
 			open(pathOriginal+FileList[k]); //opens the original image
