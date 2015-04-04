@@ -13,15 +13,17 @@
 //Input path - ushizima=laptop, dani=desktop
 var username="ushizima";
 //graylevel images
-var pathOriginal = "/Users/"+username+"/Dropbox/aqui/others/Cervix/ISBI2015/data/nossosResultados/testLBNL/EDF";
+var pathOriginal = "/Users/"+username+"/Dropbox/aqui/others/Cervix/ISBI2015/data/nossosResultados/testLBNL/EDF/";
 //"/Users/ushizima/Dropbox/aqui/others/Cervix/ISBI2015/data/nossosResultados/testandoAvaliacao/verdadeTerrestre/segmentacao (1)";
+
 //binary images from the conference
-var pathRootNuc = "
-var pathRootCito = "
+var pathRoot = "
+var pathRootNuc = pathRoot +"
+var pathRootCito =  pathRoot +"
 
 //"/Users/ushizima/Dropbox/aqui/others/Cervix/isbi2015/data/nossosResultados/testLBNL/resSPVD_0322/"
 
-macro "featureExtractionSPVD" {
+macro "featureExtractionNucCit" {
 	
 	run("Close All");
 	//Output path
