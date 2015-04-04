@@ -22,7 +22,7 @@
 	var pathRootCito =  pathRoot + "seg_frame";
 
 //Output
-	var pathOutput = pathRoot + "features/";
+	var pathOutput = "/Users/ushizima/Dropbox/aqui/others/Cervix/ISBI2015/data/nossosResultados/testLBNL/trainingFeatures/";
 
 //"/Users/ushizima/Dropbox/aqui/others/Cervix/isbi2015/data/nossosResultados/testLBNL/resSPVD_0322/"
 
@@ -34,12 +34,12 @@ macro "featureExtractionNucCit" {
 	
 	FileList = getFileList(pathOriginal);
 	N=FileList.length;
-	print(N);
-
+	//print(N);
+	
 	start = getTime; 	
 	
 		for (k=0;k<N;k++){
-			
+			//open original EDF image
 			open(pathOriginal+FileList[k]); rename("orig");
 			nImgFile = split(FileList[k],"frame");
 			nImgFile = split(nImgFile[0],".");
@@ -52,14 +52,26 @@ macro "featureExtractionNucCit" {
 			FileListCito = getFileList(pathRootCito+nImgFile+"_png/");
 			Ncito=FileListCito.length;
 
-			run("Analyze Particles...", "size="+0+"-Infinity pixels circularity=0.00-1.00 show=Masks in_situ stack");//100=40microns
-
+			//Settings for feature extraction - must be within for(k because depends on the images
+			run("Set Measurements...", "area mean standard modal min centroid center perimeter bounding fit shape feret's integrated median skewness kurtosis area_fraction limit redirect=orig decimal=4");
+			//run("Analyze Particles...", "display clear in_situ");
+			run("Analyze Particles...", "size="+0+"-Infinity pixels circularity=0.00-1.00 display clear in_situ");//100=40microns
+			saveAs("Results", pathOutput+ "featNuc" + nImgFile + ".xls");
+			wait(100);
+			selectWindow("nuc");close;
+			selectWindow("Results");run("Close");
+			//f= File.open(pathOutput+"featNuc"+nImgFile+".txt");
+			
 			//for each cytoplasm
 			for (c=0;c<Ncito;c++){
-				print(pathRootCito+nImgFile+"_png/"+FileListCito[c]);
+				open(pathRootCito+nImgFile+"_png/"+FileListCito[c]);
+				run("8-bit");
 				rename("cito");
+				run("Analyze Particles...", "size="+0+"-Infinity pixels circularity=0.00-1.00 display in_situ");
+				wait(100);
+				selectWindow("cito");close;
 			}
-			//rename("cito");
+			
 			
 			jujuba
 			//frame004_NUGT.png
