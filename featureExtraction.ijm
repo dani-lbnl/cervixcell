@@ -14,7 +14,9 @@
 	var username="ushizima";
 	
 	//binary images from the conference
-	var pathRoot = "/Users/"+username+"/Dropbox/aqui/others/Cervix/ISBI2015/data/imagensOriginais/Training_R1_01Dec2014/Training/"
+	//var pathRoot = "/Users/"+username+"/Dropbox/aqui/others/Cervix/ISBI2015/data/imagensOriginais/Training_R1_01Dec2014/Training/"
+	var pathRoot = "/Users/"+username+"/Dropbox/aqui/others/Cervix/ISBI2015/data/imagensOriginais/Training_R2_Jan2015/"
+	
 	//graylevel images
 	var pathOriginal = pathRoot + "EDF/";
 	//binary images from the conference
@@ -32,7 +34,7 @@ macro "featureExtractionNucCit" {
 	
 	FileList = getFileList(pathOriginal);
 	N=FileList.length;
-	//print(N);
+	print(N);
 	
 	start = getTime; 	
 	
