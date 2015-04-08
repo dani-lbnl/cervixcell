@@ -19,5 +19,10 @@ for (i in 1:2){
     nuc = sample; 
 }
 
+
+#just in case R crashes, which happened before
 write.csv(nuc, file=paste(pathOutput,"allNuc.csv",sep=''), row.names=F);
 write.csv(sample, file=paste(pathOutput,"allCito.csv",sep=''),row.names=F);
+
+require(car)
+scatterplotMatrix(nuc[,c(1,11,14,15,19)])
